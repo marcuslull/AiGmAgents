@@ -2,9 +2,16 @@ package agents;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
-import com.google.adk.agents.SequentialAgent;
+import com.google.adk.tools.mcp.McpTool;
+import configurations.McpConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class Praetor {
+
+    private static Logger logger = LoggerFactory.getLogger(Praetor.class);
 
     private static String NAME = "Praetor";
     private static String MODEL = "gemini-2.0-flash";
@@ -29,18 +36,31 @@ public class Praetor {
     private Praetor(){};
 
     public static BaseAgent getAgent() {
-        if (baseAgent == null) baseAgent = init();
+
+        if (baseAgent == null) {
+            try {
+                baseAgent = init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        logger.info("Retrieving Praetor");
         return baseAgent;
     }
 
-    private static BaseAgent init() {
+    private static BaseAgent init() throws Exception {
 
+        List<McpTool> mcpTools = McpConfig.loadTools().join();
+
+        logger.info("Building Praetor");
         return LlmAgent.builder()
                 .name(NAME)
                 .model(MODEL)
                 .description(DESCRIPTION)
                 .instruction(INSTRUCTION)
                 .subAgents(Chronos.getAgent(), Justivor.getAgent(), Oratorix.getAgent(), Orbis.getAgent())
+                .tools(mcpTools)
                 .build();
     }
 }

@@ -2,9 +2,12 @@ package agents;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
-import com.google.adk.agents.SequentialAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Chronos {
+
+    private static Logger logger = LoggerFactory.getLogger(Chronos.class);
 
     private static String NAME = "Chronos";
     private static String MODEL = "gemini-2.0-flash";
@@ -28,11 +31,15 @@ public class Chronos {
     private Chronos(){};
 
     public static BaseAgent getAgent() {
+
         if (baseAgent == null) baseAgent = init();
+        logger.info("Retrieving Chronos");
         return baseAgent;
     }
 
     private static BaseAgent init() {
+
+        logger.info("Building Chronos");
         return LlmAgent.builder()
                 .name(NAME)
                 .model(MODEL)

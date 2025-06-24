@@ -2,8 +2,12 @@ package agents;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Nexus {
+
+    private static Logger logger = LoggerFactory.getLogger(Nexus.class);
 
     private static String NAME = "Nexus";
     private static String MODEL = "gemini-2.0-flash";
@@ -26,11 +30,15 @@ public class Nexus {
     private Nexus(){};
 
     public static BaseAgent getAgent() {
+
         if (baseAgent == null) baseAgent = init();
+        logger.info("Retrieving Nexus");
         return baseAgent;
     }
 
     private static BaseAgent init() {
+
+        logger.info("Building Nexus");
         return LlmAgent.builder()
                 .name(NAME)
                 .model(MODEL)

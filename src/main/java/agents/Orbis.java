@@ -2,8 +2,12 @@ package agents;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Orbis {
+
+    private static Logger logger = LoggerFactory.getLogger(Orbis.class);
 
     private static String NAME = "Orbis";
     private static String MODEL = "gemini-2.0-flash";
@@ -26,11 +30,15 @@ public class Orbis {
     private Orbis(){};
 
     public static BaseAgent getAgent() {
+
         if (baseAgent == null) baseAgent = init();
+        logger.info("Retrieving Orbis");
         return baseAgent;
     }
 
     private static BaseAgent init() {
+
+        logger.info("Building Orbis");
         return LlmAgent.builder()
                 .name(NAME)
                 .model(MODEL)

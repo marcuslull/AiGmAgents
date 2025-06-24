@@ -2,8 +2,12 @@ package agents;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Oratorix {
+
+    private static Logger logger = LoggerFactory.getLogger(Oratorix.class);
 
     private static String NAME = "Oratorix";
     private static String MODEL = "gemini-2.0-flash";
@@ -26,11 +30,15 @@ public class Oratorix {
     private Oratorix(){};
 
     public static BaseAgent getAgent() {
+
         if (baseAgent == null) baseAgent = init();
+        logger.info("Retrieving Oratorix");
         return baseAgent;
     }
 
     private static BaseAgent init() {
+
+        logger.info("Building Oratorix");
         return LlmAgent.builder()
                 .name(NAME)
                 .model(MODEL)

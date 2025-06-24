@@ -2,8 +2,12 @@ package agents;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Justivor {
+
+    private static Logger logger = LoggerFactory.getLogger(Justivor.class);
 
     private static String NAME = "Justivor";
     private static String MODEL = "gemini-2.0-flash";
@@ -26,11 +30,15 @@ public class Justivor {
     private Justivor(){};
 
     public static BaseAgent getAgent() {
+
         if (baseAgent == null) baseAgent = init();
+        logger.info("Retrieving Justvor");
         return baseAgent;
     }
 
     private static BaseAgent init() {
+
+        logger.info("Building Justvor");
         return LlmAgent.builder()
                 .name(NAME)
                 .model(MODEL)
