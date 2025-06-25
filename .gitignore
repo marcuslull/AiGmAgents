@@ -38,3 +38,4 @@ build/
 .DS_Store
 /vertex.env
 /Run.md
+/mcp-stdio-server.log
