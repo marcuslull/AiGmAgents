@@ -21,3 +21,7 @@ GOOGLE_CLOUD_LOCATION=<GOOGLE_CLOUD_LOCATION> \
 java -jar <PATH_TO_JAR> \
 <PATH_TO_MCP_SERVER_JAR>
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
