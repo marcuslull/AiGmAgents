@@ -36,6 +36,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+
+### Custom Ignores ###
 /vertex.env
 /Run.md
 /mcp-stdio-server.log
+/RunAgents.md

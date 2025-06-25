@@ -13,15 +13,23 @@ public class McpConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(McpConfig.class);
 
-    private static final String FAT_JAR_LOCATION = "C:\\Users\\Marcus\\Documents\\IdeaProjects\\AiGmMcp\\target\\AiGmMcp-0.0.1-SNAPSHOT.jar";
     private static final String JAVA_COMMAND = "java";
     private static final String JAVA_ARGS = "-jar";
     private static final String JAR_PROFILE = "--spring.profiles.active=pack";
-    private static final ServerParameters serverParameters = new ServerParameters.Builder(JAVA_COMMAND).args(JAVA_ARGS, FAT_JAR_LOCATION, JAR_PROFILE).build();
 
-    private static final McpToolset toolset = new McpToolset(serverParameters);
+    private static boolean isInitialized = false;
+
+    private static McpToolset toolset;
 
     private McpConfig(){}
+
+    public static void initialize(String mcpJarPath) {
+        if (isInitialized) return;
+        ServerParameters serverParameters = new ServerParameters.Builder(JAVA_COMMAND).args(JAVA_ARGS, mcpJarPath, JAR_PROFILE).build();
+        toolset = new McpToolset(serverParameters);
+        isInitialized = true;
+        logger.info("McpConfig initialized with JAR: {}", mcpJarPath);
+    }
 
     public static CompletableFuture<List<McpTool>> loadTools() {
 
